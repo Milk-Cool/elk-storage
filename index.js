@@ -78,6 +78,7 @@ const main = async () => {
 	const parsedFiles = files.map(x => path.join(FILES, x));
 	for(let i in parsedFiles) {
 		if(!names.includes(files[i])) {
+			console.log(`Uploading file ${files[i]}...`);
 			newData = await upload(newData, parsedFiles[i]);
 			continue;
 		}
