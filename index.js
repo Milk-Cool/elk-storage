@@ -19,12 +19,12 @@ const parseFile = datastr => {
 		"error": false,
 		"name": atob(data[1]),
 		"changed": parseInt(data[2]),
-		"data": atob(data[3])
+		"data": Buffer.from(data[3], "base64")
 	};
 };
 
 const saveFile = (name, changed, data) => {
-	return `${PREFIX}|${btoa(name)}|${changed.toString()}|${btoa(data)}`;
+	return `${PREFIX}|${btoa(name)}|${changed.toString()}|${data.toString("base64")}`;
 };
 	
 const get = async () => {
@@ -78,7 +78,7 @@ const main = async () => {
 	const parsedFiles = files.map(x => path.join(FILES, x));
 	for(let i in parsedFiles) {
 		if(!names.includes(files[i])) {
-			console.log(`Uploading file ${files[i]}...`);
+			console.log(`Uploading new file ${files[i]}...`);
 			newData = await upload(newData, parsedFiles[i]);
 			continue;
 		}
