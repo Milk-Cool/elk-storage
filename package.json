@@ -1,0 +1,29 @@
+{
+  "name": "elk-storage",
+  "version": "0.1.0",
+  "description": "A proof-of-concept program showing how you can store files on elk.letovo.ru",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milk-Cool/elk-storage.git"
+  },
+  "keywords": [
+    "elk",
+    "letovo",
+    "file",
+    "storage"
+  ],
+  "author": "Milk_Cool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Milk-Cool/elk-storage/issues"
+  },
+  "homepage": "https://github.com/Milk-Cool/elk-storage#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "utimes": "^5.2.1"
+  }
+}
