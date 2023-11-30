@@ -2,7 +2,7 @@
 File storage on elk.letovo.ru
 
 ## Obtaining a token
-1. Go to https://elk.letovo.ru using Chrome and log in as a Letovo student. Then open DevTools, go to the Application tab, then on the lefft side open Local Storage -> elk.letovo.ru. Copy the value of the `user-token` cookie. This is your token, you can use it to download or upload files.
+1. Go to https://elk.letovo.ru using Chrome and log in as a Letovo student. Then open DevTools, go to the Application tab, then on the lefft side open Local Storage -> elk.letovo.ru. Copy the value of the `user-token` item. This is your token, you can use it to download or upload files.
 > If you log out on elk.letovo.ru, you might need to update your token when you log back in.
 
 ## Downloading the program
