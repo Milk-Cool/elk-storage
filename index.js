@@ -3,7 +3,7 @@ const path = require("path");
 const { question } = require("readline-sync");
 const utimes = require("utimes");
 
-const FILES = "files/";
+const FILES = "files/"; // Trailing slash required!
 const PREFIX = "~~STORAGE";
 
 let token;
@@ -54,7 +54,7 @@ const uploadRaw = async arr => {
 }
 
 const upload = async (prevDataArray, fpath) => {
-	const file = parseFile(saveFile(path.basename(fpath), Math.floor(fs.statSync(fpath).ctimeMs), fs.readFileSync(fpath)));
+	const file = parseFile(saveFile(fpath.slice(fpath.indexOf(path.sep) + 1), Math.floor(fs.statSync(fpath).ctimeMs), fs.readFileSync(fpath)));
 	let flag = false;
 	for(let i in prevDataArray)
 		if(prevDataArray[i].name == file.name && file.changed > prevDataArray[i].changed) {
@@ -74,7 +74,8 @@ const main = async () => {
 	const data = await get();
 	let newData = JSON.parse(JSON.stringify(data));
 	const names = data.map(x => x.name);
-	const files = fs.readdirSync(FILES);
+	const files = fs.readdirSync(FILES, { "recursive": true })
+		.filter(x => fs.statSync(`${FILES}${x}`).isFile());
 	const parsedFiles = files.map(x => path.join(FILES, x));
 	for(let i in parsedFiles) {
 		if(!names.includes(files[i])) {
@@ -93,6 +94,7 @@ const main = async () => {
 		const fname = path.join(FILES, i.name);
 		if(!fs.existsSync(fname) || i.changed > Math.floor(fs.statSync(fname).ctimeMs)) {
 			console.log(`Downloading file ${i.name}...`);
+			fs.mkdirSync(path.dirname(fname), { "recursive": true });
 			fs.writeFileSync(fname, i.data);
 			await utimes.utimes(fname, i.changed);
 		}
